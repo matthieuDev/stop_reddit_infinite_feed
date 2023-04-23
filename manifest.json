@@ -1,0 +1,24 @@
+{
+
+  "description": "Limit the reddit infinite feed",
+  "manifest_version": 2,
+  "name": "LimitRedditFeed",
+  "version": "1.0",
+
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "activeTab",
+    "https://www.reddit.com/*", "https://gql.reddit.com/*", "https://preview.redd.it/*"
+  ],
+
+  "browser_action": { 
+    "default_icon": "icons/limit_feed.png",
+    "default_title": "LimitRedditFeed",
+    "default_popup": "popup/limit_feed.html"
+  },
+
+  "background": {
+    "scripts": ["scripts/background.js"]
+  }
+}

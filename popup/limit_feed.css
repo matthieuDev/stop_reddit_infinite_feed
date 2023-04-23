@@ -1,0 +1,24 @@
+
+.button {
+  margin: 3% auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.apply {
+  background-color: #E5F2F2;
+}
+
+.apply:hover {
+  background-color: #CFF2F2;
+}
+
+input[pattern]:invalid{
+  color:red;
+}
+
+#date{
+  width: 50%;
+}
