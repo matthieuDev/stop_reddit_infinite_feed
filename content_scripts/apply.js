@@ -16,7 +16,7 @@
 
         let i = 0;
         for (let post of listPost) {
-            if (i >= maxPost) post.remove();
+            if (i > maxPost) post.remove();
             i++;
         }
     };

@@ -1,6 +1,16 @@
   
+const DEFAULT_MAX_POST = 40;
+function loadMaxPost () {
+    try {
+        return parseInt(localStorage.getItem('stop_reddit_inifinite_feed_max_nb_posts')) || DEFAULT_MAX_POST;
+    } catch (err) {
+        return DEFAULT_MAX_POST
+    }
+}
+
+
 let i = 0;
-let maxPost = 40;
+let maxPost = loadMaxPost();
 let last_after;
 
 let curr_after ;
@@ -37,6 +47,7 @@ function cancel(requestDetails) {
 
     if (requestDetails.url === 'https://www.reddit.com/') {
         i = 25;
+        maxPost = loadMaxPost();
     }
     else if (requestDetails.url === 'https://gql.reddit.com/') {
         postData = parseBodyPost(requestDetails)
