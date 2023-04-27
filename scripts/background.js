@@ -80,6 +80,6 @@ function cancel(requestDetails) {
 
 browser.webRequest.onBeforeRequest.addListener(
     cancel,
-    {urls: ["https://www.reddit.com/*", "https://gql.reddit.com/*", "https://preview.redd.it/*"]},
+    {urls: ["https://www.reddit.com/*", "https://gql.reddit.com/*"]},
     ["blocking", "requestBody"],
 );
