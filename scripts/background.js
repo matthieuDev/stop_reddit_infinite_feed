@@ -46,7 +46,7 @@ function cancel(requestDetails) {
     filterHtml();
 
     if (requestDetails.url === 'https://www.reddit.com/') {
-        i = 25;
+        i = 0;
         maxPost = loadMaxPost();
     }
     else if (requestDetails.url === 'https://gql.reddit.com/') {
