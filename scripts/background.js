@@ -59,9 +59,8 @@ function cancel(requestDetails) {
             curr_plus_pagesize = i + nb_post_next_page;
             curr_is_passing_threshold = i <= maxPost && curr_plus_pagesize > maxPost;
 
-            if (last_after === curr_after) {
+            if (last_after !== curr_after) {
                 i += nb_post_next_page;
-            } else {
                 last_after = curr_after;
             }
 
