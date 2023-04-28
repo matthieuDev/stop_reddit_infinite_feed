@@ -9,7 +9,7 @@
     "webRequest",
     "webRequestBlocking",
     "activeTab",
-    "https://www.reddit.com/*", "https://gql.reddit.com/*"
+    "https://www.reddit.com/", "https://gql.reddit.com/*", "https://www.reddit.com/r/*/"
   ],
 
   "browser_action": { 

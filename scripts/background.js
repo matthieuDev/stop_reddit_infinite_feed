@@ -17,6 +17,8 @@ let curr_after ;
 let nb_post_next_page ;
 let curr_is_passing_threshold ;
 
+let curr_url;
+
 function filterHtmlThen(tabs, y) {
     browser.tabs.sendMessage(tabs[0].id, {
         command: "filterHtml",
@@ -42,10 +44,24 @@ isAskingNextBatch = postData => {
     return !!(variables && variables.pageSize && variables.after)
 }
 
+const isGoodBaseUrl = url => {
+    if (!url) return false;
+    return url === 'https://www.reddit.com/' || (url.startsWith('https://www.reddit.com/r/') && url.split('/')[5] !== 'comments');
+} 
+
 function cancel(requestDetails) {
+    // get current url
+    browser.tabs.query({active: true, currentWindow: true})
+        .then(tabs => {
+            curr_url = tabs[0].url;
+        });
+
+    if (!isGoodBaseUrl(curr_url)) return;
+
     filterHtml();
 
-    if (requestDetails.url === 'https://www.reddit.com/') {
+    // When coming to a new page
+    if (isGoodBaseUrl(requestDetails.url)) {
         i = 0;
         maxPost = loadMaxPost();
     }
@@ -79,6 +95,6 @@ function cancel(requestDetails) {
 
 browser.webRequest.onBeforeRequest.addListener(
     cancel,
-    {urls: ["https://www.reddit.com/*", "https://gql.reddit.com/*"]},
+    {urls: ["https://www.reddit.com/", "https://gql.reddit.com/*", "https://www.reddit.com/r/*/"]},
     ["blocking", "requestBody"],
 );
