@@ -5,6 +5,12 @@
   "name": "LimitRedditFeed",
   "version": "1.0",
 
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "matthieu.devaux@alumni.epfl.ch"
+    }
+  },
+
   "permissions": [
     "webRequest",
     "webRequestBlocking",
