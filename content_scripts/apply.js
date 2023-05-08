@@ -11,7 +11,8 @@
     window.hasRun = true;
     
     const filterHtml = maxPost => {
-        const divListPost = document.querySelector('div[data-scroller-first]').parentNode;
+        const divListPostAll = document.querySelectorAll('div[data-scroller-first]');
+        const divListPost = divListPostAll[divListPostAll.length - 1]?.parentNode;
         const listPost = divListPost.querySelectorAll(':scope > div');
 
         let i = 0;
