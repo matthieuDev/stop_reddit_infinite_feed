@@ -66,23 +66,13 @@ function cancel(requestDetails) {
         maxPost = loadMaxPost();
     }
     else if (requestDetails.url.startsWith('https://www.reddit.com/svc/shreddit/feeds/home-feed')) {
-        
+        const distanceList = (requestDetails.url.split('?')[1] ?? '').split('&').filter(v => v.startsWith('distance='));
+        if (distanceList.length == 1) {
+            i = parseInt(distanceList[0].split('=')[1])
+        }
         if (i > maxPost) {
             return { cancel: true };
         }
-        let filter = browser.webRequest.filterResponseData(requestDetails.requestId);
-        let decoder = new TextDecoder("utf-8");
-        let encoder = new TextEncoder();
-
-        filter.ondata = (event) => {
-            let str = decoder.decode(event.data, { stream: true });
-            i += str.match(/<shreddit-post /g)?.length ?? 0 ;
-            filter.write(encoder.encode(str));
-        };
-        
-        filter.onstop = (event) => {
-            filter.close();
-        };
     }
     return {cancel: false};
 }
