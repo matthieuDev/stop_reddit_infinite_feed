@@ -65,36 +65,30 @@ function cancel(requestDetails) {
         i = 0;
         maxPost = loadMaxPost();
     }
-    else if (requestDetails.url === 'https://gql.reddit.com/') {
-        postData = parseBodyPost(requestDetails)
-        if (!!postData && isAskingNextBatch(postData)) {
-
-            curr_after = postData.variables.after;
-            nb_post_next_page = postData.variables.pageSize;
-
-            curr_plus_pagesize = i + nb_post_next_page;
-            curr_is_passing_threshold = i <= maxPost && curr_plus_pagesize > maxPost;
-
-            if (last_after !== curr_after) {
-                i += nb_post_next_page;
-                last_after = curr_after;
-            }
-
-            if (curr_is_passing_threshold) {
-                // when the threshold was just passed
-                return {cancel: false};
-            }
-            
-            if (i > maxPost) {
-                return { cancel: true };
-            }
+    else if (requestDetails.url.startsWith('https://www.reddit.com/svc/shreddit/feeds/home-feed')) {
+        
+        if (i > maxPost) {
+            return { cancel: true };
         }
+        let filter = browser.webRequest.filterResponseData(requestDetails.requestId);
+        let decoder = new TextDecoder("utf-8");
+        let encoder = new TextEncoder();
+
+        filter.ondata = (event) => {
+            let str = decoder.decode(event.data, { stream: true });
+            i += str.match(/<shreddit-post /g)?.length ?? 0 ;
+            filter.write(encoder.encode(str));
+        };
+        
+        filter.onstop = (event) => {
+            filter.close();
+        };
     }
     return {cancel: false};
 }
 
 browser.webRequest.onBeforeRequest.addListener(
     cancel,
-    {urls: ["https://www.reddit.com/", "https://gql.reddit.com/*", "https://www.reddit.com/r/*/"]},
+    {urls: ["https://www.reddit.com/", "https://www.reddit.com/svc/shreddit/feeds/*", "https://www.reddit.com/r/*/"]},
     ["blocking", "requestBody"],
 );

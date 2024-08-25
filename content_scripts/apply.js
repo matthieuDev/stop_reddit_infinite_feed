@@ -11,9 +11,7 @@
     window.hasRun = true;
     
     const filterHtml = maxPost => {
-        const divListPostAll = document.querySelectorAll('div[data-scroller-first]');
-        const divListPost = divListPostAll[divListPostAll.length - 1]?.parentNode;
-        const listPost = divListPost.querySelectorAll(':scope > div');
+        const listPost = document.querySelectorAll('shreddit-post');
 
         let i = 0;
         for (let post of listPost) {

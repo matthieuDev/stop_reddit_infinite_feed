@@ -7,15 +7,16 @@
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "matthieu.devaux@alumni.epfl.ch"
+      "id": "reddit-stop-reddit-infinite-feed@matthieuDev.com"
     }
   },
 
   "permissions": [
     "webRequest",
     "webRequestBlocking",
+    "webRequestFilterResponse",
     "activeTab",
-    "https://www.reddit.com/", "https://gql.reddit.com/*", "https://www.reddit.com/r/*/"
+    "https://www.reddit.com/", "https://www.reddit.com/svc/shreddit/feeds/*", "https://www.reddit.com/r/*/"
   ],
 
   "browser_action": { 
