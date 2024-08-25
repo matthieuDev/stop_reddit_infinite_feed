@@ -16,7 +16,7 @@
     "webRequestBlocking",
     "webRequestFilterResponse",
     "activeTab",
-    "https://www.reddit.com/", "https://www.reddit.com/svc/shreddit/feeds/*", "https://www.reddit.com/r/*/"
+    "https://www.reddit.com/", "https://www.reddit.com/svc/shreddit/feeds/*", "https://www.reddit.com/svc/shreddit/community-more-posts/*", "https://www.reddit.com/r/*/"
   ],
 
   "browser_action": { 

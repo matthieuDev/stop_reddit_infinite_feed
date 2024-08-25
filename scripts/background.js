@@ -64,21 +64,22 @@ function cancel(requestDetails) {
     if (isGoodBaseUrl(requestDetails.url)) {
         i = 0;
         maxPost = loadMaxPost();
-    }
-    else if (requestDetails.url.startsWith('https://www.reddit.com/svc/shreddit/feeds/home-feed')) {
+    } else if (requestDetails.url.startsWith('https://www.reddit.com/svc/shreddit/feeds/home-feed')) {
         const distanceList = (requestDetails.url.split('?')[1] ?? '').split('&').filter(v => v.startsWith('distance='));
         if (distanceList.length == 1) {
             i = parseInt(distanceList[0].split('=')[1])
         }
-        if (i > maxPost) {
-            return { cancel: true };
+    } else if (requestDetails.url.startsWith('https://www.reddit.com/svc/shreddit/community-more-posts/')) {
+        const distanceList = (requestDetails.url.split('?')[1] ?? '').split('&').filter(v => v.startsWith('feedLength='));
+        if (distanceList.length == 1) {
+            i = parseInt(distanceList[0].split('=')[1])
         }
-    }
-    return {cancel: false};
+    } 
+    return {cancel: i > maxPost};
 }
 
 browser.webRequest.onBeforeRequest.addListener(
     cancel,
-    {urls: ["https://www.reddit.com/", "https://www.reddit.com/svc/shreddit/feeds/*", "https://www.reddit.com/r/*/"]},
+    {urls: ["https://www.reddit.com/", "https://www.reddit.com/svc/shreddit/feeds/*", "https://www.reddit.com/svc/shreddit/community-more-posts/*", "https://www.reddit.com/r/*/"]},
     ["blocking", "requestBody"],
 );
