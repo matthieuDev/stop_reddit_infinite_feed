@@ -26,22 +26,13 @@ function filterHtmlThen(tabs, y) {
     });
 }
 function reportError(error) {
-    console.error(`Could not beastify: ${error}`);
+    console.error(`Could not query tab: ${error}`);
 }
 
 filterHtml = () => {
     browser.tabs.query({active: true, currentWindow: true})
         .then(filterHtmlThen)
         .catch(reportError);
-}
-
-parseBodyPost = request => request.requestBody && JSON.parse(decodeURIComponent(String.fromCharCode.apply(null,
-    new Uint8Array(request.requestBody.raw[0].bytes)
-)));
-
-isAskingNextBatch = postData => {
-    const variables = postData.variables;
-    return !!(variables && variables.pageSize && variables.after)
 }
 
 const isGoodBaseUrl = url => {
@@ -81,5 +72,5 @@ function cancel(requestDetails) {
 browser.webRequest.onBeforeRequest.addListener(
     cancel,
     {urls: ["https://www.reddit.com/", "https://www.reddit.com/svc/shreddit/feeds/*", "https://www.reddit.com/svc/shreddit/community-more-posts/*", "https://www.reddit.com/r/*/"]},
-    ["blocking", "requestBody"],
+    ["blocking"],
 );
