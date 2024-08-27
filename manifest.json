@@ -24,12 +24,6 @@
     "default_title": "LimitRedditFeed",
     "default_popup": "popup/limit_feed.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://www.reddit.com/*"],
-      "js": ["/content_scripts/apply.js"]
-    }
-  ],
 
   "background": {
     "scripts": ["scripts/background.js"]
