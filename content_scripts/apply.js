@@ -1,4 +1,5 @@
 
+
 (() => {
     /**
      * Check and set a global guard variable.
@@ -11,11 +12,14 @@
     window.hasRun = true;
     
     const filterHtml = maxPost => {
-        const listPost = document.querySelectorAll('shreddit-post');
+        const listPost = document.querySelector('shreddit-feed').childNodes;
 
         let i = 0;
         for (let post of listPost) {
-            if (i > maxPost) post.remove();
+            if (!(post.matches && post.matches('article, .virtualized-placeholder') && post.offsetHeight  > 1)) continue;
+            if (i >= maxPost) {
+                post.remove();
+            }
             i++;
         }
     };
