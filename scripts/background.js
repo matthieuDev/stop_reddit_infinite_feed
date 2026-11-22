@@ -15,7 +15,7 @@ let maxPost = loadMaxPost();
 function cancel(requestDetails) {
     maxPost = loadMaxPost();
 
-    if (requestDetails.url.startsWith('https://www.reddit.com/svc/shreddit/feeds/home-feed')) {
+    if (requestDetails.url.startsWith('https://www.reddit.com/svc/shreddit/feeds/')) {
         const distanceList = (requestDetails.url.split('?')[1] ?? '').split('&').filter(v => v.startsWith('distance='));
         if (distanceList.length == 1) {
             i = parseInt(distanceList[0].split('=')[1])
