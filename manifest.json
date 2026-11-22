@@ -3,15 +3,20 @@
   "description": "Limit the reddit infinite feed",
   "manifest_version": 2,
   "name": "LimitRedditFeed",
-  "version": "1.0",
+  "version": "1.1",
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "reddit-stop-reddit-infinite-feed@matthieuDev.com"
+      "id": "reddit-stop-reddit-infinite-feed@matthieuDev.com",
+      "data_collection_permissions": {
+        "required": [],
+        "optional": []
+      }
     }
   },
 
   "permissions": [
+    "storage",
     "webRequest",
     "webRequestBlocking",
     "webRequestFilterResponse",
