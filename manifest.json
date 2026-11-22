@@ -9,8 +9,7 @@
     "gecko": {
       "id": "reddit-stop-reddit-infinite-feed@matthieuDev.com",
       "data_collection_permissions": {
-        "required": [],
-        "optional": []
+        "required": ["none"]
       }
     }
   },
